@@ -37,6 +37,7 @@ class Operation{
           
             {
               $project: {
+                _id:0,
                 numberOfCustomersWith3DayShip: { $cond: { if: { $isArray: "$uniqueValues" }, then: { $size: "$uniqueValues" }, else: 0} },
                 // CustomerDetailsList: { $cond: { if: { $isArray: "$customerDetails" }, then: { $size: "$customerDetails"}, else: 0} },
                 // customerDetails: 1,
@@ -45,9 +46,7 @@ class Operation{
             },
           ])
         //   console.log(data)
-        return res.status(200).json({
-            data
-        })
+        return data
     }
     
     static getCustomerWith6Months=async(req,res)=>{
@@ -96,9 +95,7 @@ class Operation{
               }
             }
           ])
-          return res.status(200).json({
-            data
-          })
+          return data
     }
     static getOrderWithYearWise=async(req,res)=>{
         let data=await Order.aggregate([
@@ -160,9 +157,7 @@ class Operation{
             }
           ])
 
-        return res.status(200).json({
-            data
-        })
+        return data
     }
 }
 module.exports=Operation
